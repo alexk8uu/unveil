@@ -23,6 +23,28 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 10,
   },
+  field: {
+    marginBottom: 16,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: "500",
+    marginBottom: 6,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#CCC",
+    borderRadius: 6,
+    padding: 10,
+    fontSize: 16,
+  },
+  inputError: {
+    borderColor: "#DC2626",
+  },
+  error: {
+    color: "#DC2626",
+    marginTop: 4,
+  },
 });
 
 export default styles;
