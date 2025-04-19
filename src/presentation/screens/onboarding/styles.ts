@@ -23,9 +23,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 10,
   },
-  buttonBack: {
-    backgroundColor: "#94a3b8",
-  },
+
   field: {
     marginBottom: 16,
   },

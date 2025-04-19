@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { ScrollView, View } from "react-native";
-import { Container, Button, ButtonText } from "@/styles/GlobalStyles";
+import {
+  Container,
+  Button,
+  ButtonText,
+  buttonBack,
+} from "@/styles/GlobalStyles";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Step1Data, step1Schema } from "@/core/validators/userSchema";
@@ -45,7 +50,6 @@ const Step1UserInfo = () => {
   useEffect(() => {
     const getUser = async () => {
       const user = await getUserFromStorage();
-      console.log("User from storage:", JSON.stringify(user));
     };
     getUser();
   }, []);
@@ -108,7 +112,7 @@ const Step1UserInfo = () => {
           <ButtonText>Siguiente</ButtonText>
         </Button>
 
-        <Button onPress={handleBack} style={styles.buttonBack}>
+        <Button onPress={handleBack} style={buttonBack}>
           <ButtonText>Volver</ButtonText>
         </Button>
       </View>

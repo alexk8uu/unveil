@@ -22,7 +22,7 @@ const AppNavigator = () => {
   useEffect(() => {
     const checkStoredUser = async () => {
       const user = await getUserFromStorage();
-      console.log("User from storage:", JSON.stringify(user));
+
       if (user) {
         useUserStore.getState().updateUser(user);
         setInitialRoute(SCREEN_NAMES.Welcome);

@@ -34,11 +34,12 @@ const styles = StyleSheet.create({
     color: "#1E40AF",
     fontWeight: "400",
     marginRight: 6,
+    textTransform: "capitalize",
     fontSize: 20,
   },
   remove: {
     color: "#1E3A8A",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
   },
 });

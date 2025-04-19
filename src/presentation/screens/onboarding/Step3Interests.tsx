@@ -20,7 +20,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { OmbordingStackParamList } from "@/presentation/navigations/types";
 import { OnboardingSteps } from "@/domain/enums/onboarding.enums";
 import { StepBar } from "@/presentation/components/StepBar";
-import styles from "./styles";
+import { buttonBack } from "@/styles/GlobalStyles";
 
 const Step3Interests = () => {
   const [search, setSearch] = useState("");
@@ -93,7 +93,7 @@ const Step3Interests = () => {
               style={localStyles.option}
               onPress={() => addInterest(item)}
             >
-              <Text>{item}</Text>
+              <Text style={localStyles.textCapitalize}>{item}</Text>
             </TouchableOpacity>
           )}
           ListEmptyComponent={
@@ -124,10 +124,7 @@ const Step3Interests = () => {
           <ButtonText>Siguiente</ButtonText>
         </Button>
 
-        <Button
-          onPress={handleBack}
-          style={[{ marginTop: 10 }, styles.buttonBack]}
-        >
+        <Button onPress={handleBack} style={[{ marginTop: 10 }, buttonBack]}>
           <ButtonText>Volver</ButtonText>
         </Button>
       </View>
@@ -152,7 +149,7 @@ const localStyles = StyleSheet.create({
   selectedContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginBottom: 12,
+    justifyContent: "center",
   },
   option: {
     paddingVertical: 10,
@@ -175,6 +172,9 @@ const localStyles = StyleSheet.create({
   error: {
     color: "#DC2626",
     marginBottom: 10,
+  },
+  textCapitalize: {
+    textTransform: "capitalize",
   },
 });
 

@@ -51,8 +51,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
     paddingVertical: 16,
+    paddingHorizontal: 20,
+    width: "100%",
     flexWrap: "wrap",
   },
   stepWrapper: {

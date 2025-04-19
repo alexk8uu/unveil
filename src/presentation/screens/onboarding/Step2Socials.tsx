@@ -1,6 +1,11 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
-import { Container, Button, ButtonText } from "@/styles/GlobalStyles";
+import {
+  Container,
+  Button,
+  ButtonText,
+  buttonBack,
+} from "@/styles/GlobalStyles";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Step2Data, step2Schema } from "@/core/validators/userSchema";
@@ -51,7 +56,7 @@ const Step2Socials = () => {
             name={`socialMedia.${media}` as keyof Step2Data}
             control={control}
             error={errors?.socialMedia?.[media]?.message as string | undefined}
-            placeholder={`https://${media}.com/tuusuario`}
+            placeholder={`https://${media}.com/tu-usuario`}
           />
         ))}
       </ScrollView>
@@ -59,7 +64,7 @@ const Step2Socials = () => {
         <ButtonText>Siguiente</ButtonText>
       </Button>
 
-      <Button onPress={handleBack} style={styles.buttonBack}>
+      <Button onPress={handleBack} style={buttonBack}>
         <ButtonText>Volver</ButtonText>
       </Button>
     </Container>

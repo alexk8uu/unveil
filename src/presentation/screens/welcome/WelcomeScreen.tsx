@@ -17,7 +17,8 @@ import { useNavigation } from "@react-navigation/native";
 import { SCREEN_NAMES } from "@/presentation/navigations/screenNames";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/presentation/navigations/types";
-import { Container } from "@/styles/GlobalStyles";
+import { Button, buttonBack, ButtonText } from "@/styles/GlobalStyles";
+import { Eye, EyeOff } from "lucide-react-native";
 
 const WelcomeScreen = () => {
   const [savedName, setSavedName] = useState<string | null>(null);
@@ -25,6 +26,7 @@ const WelcomeScreen = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [inputPassword, setInputPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const animatedHeight = useRef(new Animated.Value(250)).current;
 
@@ -126,52 +128,57 @@ const WelcomeScreen = () => {
               Hola nuevamente, {savedName}
             </Text>
             <View style={{ gap: 12 }}>
-              <TouchableOpacity style={styles.button} onPress={handleShowLogin}>
-                <Text style={styles.buttonText}>Iniciar sesión</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.secondary}
-                onPress={handleNewUser}
-              >
-                <Text style={styles.secondaryText}>Crear nuevo usuario</Text>
-              </TouchableOpacity>
+              <Button onPress={handleShowLogin}>
+                <ButtonText>Iniciar sesión</ButtonText>
+              </Button>
+              <Button style={styles.secondary} onPress={handleNewUser}>
+                <ButtonText style={styles.secondaryText}>
+                  Crear nuevo usuario
+                </ButtonText>
+              </Button>
             </View>
           </>
         ) : showLogin ? (
           <>
             <Text style={styles.subtitle}>Ingresá tu contraseña</Text>
-            <TextInput
-              secureTextEntry
-              value={inputPassword}
-              onChangeText={(text) => {
-                setInputPassword(text);
-                setError("");
-              }}
-              placeholder="Contraseña"
-              style={styles.input}
-            />
+            <View style={styles.inputWrapper}>
+              <TextInput
+                secureTextEntry={!showPassword}
+                value={inputPassword}
+                onChangeText={(text) => {
+                  setInputPassword(text);
+                  setError("");
+                }}
+                placeholder="Contraseña"
+                style={styles.input}
+              />
+              <TouchableOpacity
+                onPress={() => setShowPassword((prev) => !prev)}
+                style={styles.eyeIcon}
+              >
+                {showPassword ? (
+                  <EyeOff size={20} color={"black"} />
+                ) : (
+                  <Eye size={20} color={"black"} />
+                )}
+              </TouchableOpacity>
+            </View>
             {error !== "" && <Text style={styles.error}>{error}</Text>}
             <View style={{ gap: 12 }}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={handleVerifyPassword}
-              >
-                <Text style={styles.buttonText}>Continuar</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.secondary}
-                onPress={handleHideLogin}
-              >
-                <Text style={styles.secondaryText}>Volver</Text>
-              </TouchableOpacity>
+              <Button onPress={handleVerifyPassword}>
+                <ButtonText>Continuar</ButtonText>
+              </Button>
+              <Button style={buttonBack} onPress={handleHideLogin}>
+                <ButtonText>Volver</ButtonText>
+              </Button>
             </View>
           </>
         ) : (
           <>
             <Text style={styles.subtitle}>¿Listo para comenzar?</Text>
-            <TouchableOpacity style={styles.button} onPress={handleNewUser}>
-              <Text style={styles.buttonText}>Comenzar</Text>
-            </TouchableOpacity>
+            <Button onPress={handleNewUser}>
+              <ButtonText>Comenzar</ButtonText>
+            </Button>
           </>
         )}
       </Animated.View>
@@ -236,11 +243,9 @@ const styles = StyleSheet.create({
   },
   buttonText: { color: "white", fontWeight: "bold" },
   secondary: {
-    padding: 14,
-    alignItems: "center",
+    backgroundColor: "white",
     borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 12,
+    borderColor: "#cbd5e1",
   },
   secondaryText: { color: "#444" },
   input: {
@@ -253,6 +258,18 @@ const styles = StyleSheet.create({
   error: {
     color: "red",
     textAlign: "center",
+  },
+  inputWrapper: {
+    position: "relative",
+    justifyContent: "center",
+  },
+  inputPass: {
+    paddingRight: 40,
+  },
+  eyeIcon: {
+    position: "absolute",
+    right: 10,
+    top: 12,
   },
 });
 

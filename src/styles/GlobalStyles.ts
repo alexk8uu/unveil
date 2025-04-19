@@ -24,10 +24,10 @@ export const Description = styled.Text`
 
 export const Button = styled.TouchableOpacity`
   background-color: ${theme.colors.buttonBackground};
-  padding: 10px;
+  padding: 15px 10px;
+
   border-radius: ${theme.borderRadius.md}px;
   align-items: center;
-
   border-radius: 5px;
   margin-top: 10px;
 `;
@@ -36,3 +36,7 @@ export const ButtonText = styled.Text`
   color: ${theme.colors.white};
   font-weight: bold;
 `;
+
+export const buttonBack = {
+  backgroundColor: "#94a3b8",
+};

@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { Container, Button, ButtonText } from "@/styles/GlobalStyles";
+import {
+  Container,
+  Button,
+  ButtonText,
+  buttonBack,
+} from "@/styles/GlobalStyles";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "@/presentation/navigations/types";
 import { useCampaignStore } from "@/store/useCampaignStore";
@@ -82,43 +87,43 @@ const OfferDetailScreen = () => {
     <Container style={{ paddingTop: 80 }}>
       <View style={{ gap: 20 }}>
         {/* Info de la oferta */}
-        <View style={styles.offerCard}>
-          <Text style={styles.title}>{offer.businessName}</Text>
+        <View style={localStyles.offerCard}>
+          <Text style={localStyles.title}>{offer.businessName}</Text>
 
-          <Text style={styles.label}>📄 Descripción:</Text>
-          <Text style={styles.text}>{offer.description}</Text>
+          <Text style={localStyles.label}>📄 Descripción:</Text>
+          <Text style={localStyles.text}>{offer.description}</Text>
 
-          <Text style={styles.label}>🎁 Recompensa:</Text>
-          <Text style={styles.reward}>{offer.reward}</Text>
+          <Text style={localStyles.label}>🎁 Recompensa:</Text>
+          <Text style={localStyles.reward}>{offer.reward}</Text>
 
-          <Text style={styles.label}>📌 Categoría:</Text>
-          <View style={styles.badgeContainer}>
-            <View style={styles.badgeInterest}>
-              <Text style={styles.textBadge}>{offer.category}</Text>
+          <Text style={localStyles.label}>📌 Categoría:</Text>
+          <View style={localStyles.badgeContainer}>
+            <View style={localStyles.badgeInterest}>
+              <Text style={localStyles.textBadge}>{offer.category}</Text>
             </View>
           </View>
         </View>
 
         {/* Fechas */}
-        <View style={styles.dateSection}>
-          <Text style={styles.label}>🗓 Fecha tentativa 1:</Text>
+        <View style={localStyles.dateSection}>
+          <Text style={localStyles.label}>🗓 Fecha tentativa 1:</Text>
           <TouchableOpacity
             onPress={() => setShowPicker("date1")}
-            style={styles.dateButton}
+            style={localStyles.dateButton}
           >
-            <Text style={styles.dateButtonText}>
+            <Text style={localStyles.dateButtonText}>
               {date1 ? date1.toLocaleDateString() : "Seleccionar fecha"}
             </Text>
           </TouchableOpacity>
 
-          <Text style={[styles.label, { marginTop: 12 }]}>
+          <Text style={[localStyles.label, { marginTop: 12 }]}>
             🗓 Fecha tentativa 2 (opcional):
           </Text>
           <TouchableOpacity
             onPress={() => setShowPicker("date2")}
-            style={styles.dateButton}
+            style={localStyles.dateButton}
           >
-            <Text style={styles.dateButtonText}>
+            <Text style={localStyles.dateButtonText}>
               {date2 ? date2.toLocaleDateString() : "Seleccionar fecha"}
             </Text>
           </TouchableOpacity>
@@ -142,14 +147,16 @@ const OfferDetailScreen = () => {
 
         {/* Estado actual */}
         {interactionStatus === OfferInteractionStatus.Sent && date1 && (
-          <View style={styles.statusCard}>
-            <Text style={styles.statusTitle}>📤 Propuesta enviada</Text>
-            <Text style={styles.statusText}>
+          <View style={localStyles.statusCard}>
+            <Text style={localStyles.statusTitle}>📤 Propuesta enviada</Text>
+            <Text style={localStyles.statusText}>
               Fechas propuestas:
               {"\n"}- {date1.toLocaleDateString()}
               {date2 ? `\n- ${date2.toLocaleDateString()}` : ""}
             </Text>
-            <Text style={styles.statusText}>Estado: ⏳ En revisión...</Text>
+            <Text style={localStyles.statusText}>
+              Estado: ⏳ En revisión...
+            </Text>
           </View>
         )}
 
@@ -157,29 +164,29 @@ const OfferDetailScreen = () => {
         {showResponse && (
           <View
             style={[
-              styles.responseCard,
+              localStyles.responseCard,
               interactionStatus === OfferInteractionStatus.Accepted
-                ? styles.backgroundSuccess
-                : styles.backgroundError,
+                ? localStyles.backgroundSuccess
+                : localStyles.backgroundError,
             ]}
           >
             <Text
               style={[
-                styles.responseTitle,
+                localStyles.responseTitle,
                 interactionStatus === OfferInteractionStatus.Accepted
-                  ? styles.responseTextSuccess
-                  : styles.responseTextError,
+                  ? localStyles.responseTextSuccess
+                  : localStyles.responseTextError,
               ]}
             >
               🔔 Respuesta del negocio
             </Text>
             {interactionStatus === OfferInteractionStatus.Accepted ? (
-              <Text style={styles.responseTextSuccess}>
+              <Text style={localStyles.responseTextSuccess}>
                 ✅ ¡Propuesta aceptada para el{" "}
                 {selectedFinalDate?.toLocaleDateString()}!
               </Text>
             ) : (
-              <Text style={styles.responseTextError}>
+              <Text style={localStyles.responseTextError}>
                 ❌ Tu propuesta fue rechazada. Podés seguir participando en
                 otras campañas.
               </Text>
@@ -191,23 +198,23 @@ const OfferDetailScreen = () => {
       <View style={{ gap: 15 }}>
         {/* Botón enviar */}
         {interactionStatus === OfferInteractionStatus.Iddle && (
-          <TouchableOpacity
+          <Button
             onPress={handleSubmitProposal}
-            style={[styles.button, !date1 && { opacity: 0.5 }]}
+            style={[!date1 && { opacity: 0.5 }]}
             disabled={!date1}
           >
-            <Text style={styles.buttonText}>Enviar propuesta</Text>
-          </TouchableOpacity>
+            <ButtonText>Enviar propuesta</ButtonText>
+          </Button>
         )}
 
-        <Button onPress={handleBack}>
+        <Button onPress={handleBack} style={buttonBack}>
           <ButtonText>Volver</ButtonText>
         </Button>
       </View>
     </Container>
   );
 };
-const styles = StyleSheet.create({
+const localStyles = StyleSheet.create({
   offerCard: {
     backgroundColor: "#ffffff",
     padding: 20,
@@ -242,17 +249,6 @@ const styles = StyleSheet.create({
   },
   dateButtonText: {
     color: "#333",
-  },
-  button: {
-    backgroundColor: "#007BFF",
-    padding: 12,
-    borderRadius: 8,
-    marginTop: 20,
-  },
-  buttonText: {
-    color: "#FFF",
-    textAlign: "center",
-    fontWeight: "500",
   },
   statusCard: {
     padding: 16,
@@ -305,6 +301,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     color: "#111827",
+    textTransform: "capitalize",
   },
   badgeContainer: {
     flexDirection: "row",

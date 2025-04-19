@@ -2,7 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useUserStore } from "@/store/useUserStore";
 import { saveUserToStorage } from "@/data/storage/userStorage";
-import { Container, Button, ButtonText } from "@/styles/GlobalStyles";
+import {
+  Container,
+  Button,
+  ButtonText,
+  buttonBack,
+} from "@/styles/GlobalStyles";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/presentation/navigations/types";
@@ -21,7 +26,6 @@ const Step4Preview = () => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const handleFinish = async () => {
-    /*    console.log("User data to save:", user); */
     const userId = generateSimpleId(); // Generar un nuevo ID único para el usuario
     const userCreatedAt = new Date(); // Fecha de creación del usuario
     const userLevel = UserLevel.BEGINNER;
@@ -52,65 +56,67 @@ const Step4Preview = () => {
     }
   };
 
+  const handleBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <Container>
       <StepBar currentStep={3} />
 
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.title}>Vista Previa del Currículum</Text>
+      <ScrollView contentContainerStyle={localStyles.container}>
+        <Text style={localStyles.title}>Vista Previa del Currículum</Text>
 
         {/* Datos personales */}
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>👤 Información Personal</Text>
-          <Text style={styles.cardSubtitle}>Nombre: {user.fullName}</Text>
-          <Text style={styles.cardSubtitle}>Ciudad: {user.city}</Text>
-          <Text style={styles.cardSubtitle}>País: {user.country}</Text>
-          <Text style={[styles.cardSubtitle, { textTransform: "capitalize" }]}>
+        <View style={localStyles.card}>
+          <Text style={localStyles.cardTitle}>👤 Información Personal</Text>
+          <Text style={localStyles.cardSubtitle}>Nombre: {user.fullName}</Text>
+          <Text style={localStyles.cardSubtitle}>Ciudad: {user.city}</Text>
+          <Text style={localStyles.cardSubtitle}>País: {user.country}</Text>
+          <Text
+            style={[localStyles.cardSubtitle, { textTransform: "capitalize" }]}
+          >
             Nivel: {UserLevel.BEGINNER}
           </Text>
           <Text style={{ marginTop: 10, fontWeight: "600" }}>Intereses:</Text>
-          <View style={styles.badgeContainer}>
+          <View style={localStyles.badgeContainer}>
             {user.interests?.map((i) => (
-              <View style={styles.badgeInterest} key={i}>
-                <Text style={styles.textBadge}>{i}</Text>
+              <View style={localStyles.badgeInterest} key={i}>
+                <Text style={localStyles.textBadge}>{i}</Text>
               </View>
             ))}
           </View>
         </View>
 
         {/* Campañas realizadas */}
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>📢 Campañas Realizadas</Text>
-          <Text style={styles.placeholder}>
+        <View style={localStyles.card}>
+          <Text style={localStyles.cardTitle}>📢 Campañas Realizadas</Text>
+          <Text style={localStyles.placeholder}>
             ¡Completa tu primera campaña para empezar a construir tu currículum!
           </Text>
         </View>
 
         {/* Estadísticas clave */}
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>📈 Estadísticas Clave</Text>
+        <View style={localStyles.card}>
+          <Text style={localStyles.cardTitle}>📈 Estadísticas Clave</Text>
           <Text>Campañas: 0</Text>
           <Text>Reseñas: N/A</Text>
           <Text>Nivel: Principiante</Text>
         </View>
       </ScrollView>
-
-      <Button
-        onPress={handleFinish}
-        style={{
-          padding: 10,
-          backgroundColor: "#007BFF",
-          borderRadius: 5,
-          alignItems: "center",
-        }}
-      >
-        <ButtonText>Ir al Dashboard</ButtonText>
-      </Button>
+      <View>
+        <Button onPress={handleFinish}>
+          <ButtonText>Ir al Dashboard</ButtonText>
+        </Button>
+        <Button onPress={handleBack} style={buttonBack}>
+          <ButtonText>Volver</ButtonText>
+        </Button>
+      </View>
     </Container>
   );
 };
 
-const styles = StyleSheet.create({
+const localStyles = StyleSheet.create({
   container: {
     padding: 20,
   },
