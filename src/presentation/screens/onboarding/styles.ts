@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 10,
   },
+  buttonBack: {
+    backgroundColor: "#94a3b8",
+  },
   field: {
     marginBottom: 16,
   },
@@ -33,6 +36,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
+    backgroundColor: "#FFF",
     borderColor: "#CCC",
     borderRadius: 6,
     padding: 10,
@@ -44,6 +48,18 @@ const styles = StyleSheet.create({
   error: {
     color: "#DC2626",
     marginTop: 4,
+  },
+  inputWrapper: {
+    position: "relative",
+    justifyContent: "center",
+  },
+  inputPass: {
+    paddingRight: 40,
+  },
+  eyeIcon: {
+    position: "absolute",
+    right: 10,
+    top: 12,
   },
 });
 

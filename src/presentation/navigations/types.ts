@@ -1,3 +1,5 @@
+import { Offer } from "@/domain/entities/offer.entities";
+
 export type OmbordingStackParamList = {
   Step1: undefined;
   Step2: undefined;
@@ -8,4 +10,7 @@ export type OmbordingStackParamList = {
 export type RootStackParamList = {
   Onboarding: undefined;
   Dashboard: undefined;
+  OfferDetail: { offer: Offer };
+  CurriculumView: undefined;
+  Welcome: undefined;
 };

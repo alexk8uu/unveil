@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { Container } from "@/styles/GlobalStyles";
+import { Text, StyleSheet } from "react-native";
+import { Container, Button, ButtonText } from "@/styles/GlobalStyles";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Step2Data, step2Schema } from "@/core/validators/userSchema";
@@ -11,8 +11,9 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { OmbordingStackParamList } from "@/presentation/navigations/types";
 import { OnboardingSteps } from "@/domain/enums/onboarding.enums";
-import styles from "./styles";
 import { ScrollView } from "react-native-gesture-handler";
+import { StepBar } from "@/presentation/components/StepBar";
+import styles from "./styles";
 
 const Step2Socials = () => {
   const navigation =
@@ -35,10 +36,14 @@ const Step2Socials = () => {
     navigation.navigate(OnboardingSteps.Step3);
   };
 
+  const handleBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <Container>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.title}>Paso 2: Redes Sociales</Text>
+      <StepBar currentStep={1} />
+      <ScrollView>
         {SOCIAL_MEDIAS.map((media) => (
           <FormField<Step2Data>
             key={media}
@@ -50,15 +55,13 @@ const Step2Socials = () => {
           />
         ))}
       </ScrollView>
+      <Button onPress={handleSubmit(onSubmit)}>
+        <ButtonText>Siguiente</ButtonText>
+      </Button>
 
-      <Text>Step 2 Socials</Text>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate(OnboardingSteps.Step3)}
-        style={styles.button}
-      >
-        <Text>Next Step 3</Text>
-      </TouchableOpacity>
+      <Button onPress={handleBack} style={styles.buttonBack}>
+        <ButtonText>Volver</ButtonText>
+      </Button>
     </Container>
   );
 };

@@ -14,13 +14,58 @@ function OnboardingNavigator() {
     <Stack.Navigator
       initialRouteName="Step1"
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        headerBackVisible: false,
       }}
     >
-      <Stack.Screen name="Step1" component={Step1UserInfo} />
-      <Stack.Screen name="Step2" component={Step2Socials} />
-      <Stack.Screen name="Step3" component={Step3Interests} />
-      <Stack.Screen name="Step4" component={Step4Preview} />
+      <Stack.Screen
+        name="Step1"
+        component={Step1UserInfo}
+        options={{
+          title: "Paso 1: Información personal",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#f8f8f8",
+          },
+          headerTintColor: "#333",
+        }}
+      />
+      <Stack.Screen
+        name="Step2"
+        component={Step2Socials}
+        options={{
+          title: "Paso 2: Redes Sociales",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#f8f8f8",
+          },
+          headerTintColor: "#333",
+        }}
+      />
+      <Stack.Screen
+        name="Step3"
+        component={Step3Interests}
+        options={{
+          title: "Paso 3: Intereses",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#f8f8f8",
+          },
+          headerTintColor: "#333",
+        }}
+      />
+      <Stack.Screen
+        name="Step4"
+        component={Step4Preview}
+        options={{
+          title: "Paso 4: Vista previa",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#f8f8f8",
+          },
+          headerTintColor: "#333",
+        }}
+      />
     </Stack.Navigator>
   );
 }

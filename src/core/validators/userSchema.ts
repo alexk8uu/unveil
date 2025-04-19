@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { INTEREST } from "../constants/interest";
 import { SOCIAL_MEDIAS } from "../constants/social-media";
+import { UserLevel } from "@/domain/enums/user.enums";
 
 /**
  * Crea un objeto con claves dinámicas basadas en las redes sociales definidas,
@@ -26,13 +27,25 @@ const socialsSchema = z.object(socialsShape);
 
 export const fullUserSchema = z.object({
   id: z.string(),
-  fullName: z.string().min(1).max(50),
-  email: z.string().email(),
-  password: z.string().min(8).max(20),
-  country: z.string().min(1).max(50),
-  city: z.string().min(1).max(50),
-  level: z.enum(["beginner", "advanced"]),
-  interests: z.array(z.enum(INTEREST)).nonempty(),
+  fullName: z
+    .string()
+    .min(1, "El nombre es obligatorio")
+    .max(50, "El nombre no debe superar los 50 caracteres"),
+  email: z.string().email("El correo electrónico no es válido"),
+  password: z
+    .string()
+    .min(8, "La contraseña debe tener al menos 8 caracteres")
+    .max(20, "La contraseña no debe superar los 20 caracteres"),
+  country: z
+    .string()
+    .min(1, "El pais es obligatorio")
+    .max(50, "El país no debe superar los 50 caracteres"),
+  city: z
+    .string()
+    .min(1, "La ciudad es obligatoria")
+    .max(50, "La ciudad no debe superar los 50 caracteres"),
+  level: z.nativeEnum(UserLevel),
+  interests: z.array(z.enum(INTEREST)).min(1, "Selecciona al menos un interés"),
   socialMedia: socialsSchema,
   createdAt: z.date(),
 });
@@ -42,14 +55,25 @@ export const fullUserSchema = z.object({
  * Incluye nombre, email, contraseña, país y ciudad.
  */
 
-export const step1Schema = fullUserSchema.pick({
-  fullName: true,
-  email: true,
-  password: true,
-  country: true,
-  city: true,
-});
+export const step1Schema = fullUserSchema
+  .pick({
+    fullName: true,
+    email: true,
+    password: true,
 
+    country: true,
+    city: true,
+  })
+  .extend({
+    confirmPassword: z
+      .string()
+      .min(8, "La contraseña debe tener al menos 8 caracteres")
+      .max(20, "La contraseña no debe superar los 20 caracteres"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Las contraseñas no coinciden",
+    path: ["confirmPassword"],
+  });
 /**
  * Paso 2 – Redes sociales
  * Valida únicamente el bloque de social media.

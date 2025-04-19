@@ -3,8 +3,8 @@ import { theme } from "./theme";
 
 export const Container = styled.View`
   flex: 1;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
   background-color: ${theme.colors.background};
 `;
 
@@ -25,6 +25,14 @@ export const Description = styled.Text`
 export const Button = styled.TouchableOpacity`
   background-color: ${theme.colors.buttonBackground};
   padding: 10px;
+  border-radius: ${theme.borderRadius.md}px;
+  align-items: center;
+
   border-radius: 5px;
   margin-top: 10px;
+`;
+
+export const ButtonText = styled.Text`
+  color: ${theme.colors.white};
+  font-weight: bold;
 `;
