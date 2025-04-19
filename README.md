@@ -55,7 +55,7 @@ yarn start
 
 ````bash
 npm run start
-``
+```
 
 
 
